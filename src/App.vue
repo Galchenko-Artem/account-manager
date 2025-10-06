@@ -19,7 +19,6 @@
 import { Plus } from '@element-plus/icons-vue'
 import AccountList from '@/components/AccountList.vue'
 import { useAccountsStore } from '@/stores/accounts'
-
 const store = useAccountsStore()
 const add = () => store.addEmpty()
 </script>

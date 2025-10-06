@@ -1,28 +1,28 @@
-<template>
-  <div>
-    <div v-if="items.length === 0" class="empty">Записей пока нет</div>
-    <account-item
-      v-for="acc in items"
-      :key="acc.id"
-      :model="acc"
-      @delete="remove(acc.id)"
-      @save="save"
-    />
-  </div>
-</template>
-
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia'
-import { useAccountsStore } from '@/stores/accounts'
-import AccountItem from './AccountItem.vue'
+import { storeToRefs } from 'pinia';
+import type { Ref } from 'vue';
+import { useAccountsStore, type AccountDraft } from '@/stores/accounts';
+import AccountItem from './AccountItem.vue';
 
-const store = useAccountsStore()
-const { items } = storeToRefs(store)
+const store = useAccountsStore();
+const { rows } = storeToRefs(store);
+const typedRows = rows as Ref<AccountDraft[]>;
 
-function remove(id: string) { store.remove(id) }
-function save(payload: any) { store.upsert(payload) }
+function remove(id: string) { store.remove(id); }
+function save(payload: AccountDraft) { store.upsert(payload); }
 </script>
 
+<template>
+  <div v-if="typedRows.length === 0" class="empty">Записей пока нет</div>
+  <account-item
+    v-for="acc in typedRows"
+    :key="acc.id"
+    :model="acc"
+    @delete="remove(acc.id)"
+    @save="save"
+  />
+</template>
+
 <style scoped>
-.empty { color: #909399; padding: 8px 0 12px; }
+.empty { color: #909399; padding: 12px 0; }
 </style>

@@ -1,8 +1,9 @@
-export function parseLabel(raw: string): { labels: { text: string }[] } {
-  const parts = raw
+export interface LabelObj { text: string }
+
+export function parseLabel(raw: string): LabelObj[] {
+  return raw
     .split(';')
     .map(s => s.trim())
     .filter(Boolean)
-    .slice(0, 100) 
-  return { labels: parts.map(text => ({ text })) }
+    .map(text => ({ text }));
 }

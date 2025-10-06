@@ -1,7 +1,5 @@
 export type AccountType = 'LDAP' | 'Local'
-
 export interface LabelItem { text: string }
-
 export interface Account {
   id: string
   labels: LabelItem[]              
@@ -10,7 +8,6 @@ export interface Account {
   login: string | null
   password: string | null        
 }
-
 export interface AccountDraft {
   id: string
   rawLabel: string
